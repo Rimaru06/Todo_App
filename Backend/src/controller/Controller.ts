@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import createHttpError from "http-errors";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -17,7 +18,7 @@ export const signupUser: RequestHandler = async (req, res, next) => {
     });
 
     if (existingUser) {
-      return res.status(422).json({ message: "Email already exists" });
+      next(createHttpError(422, "Email already exists"));
     }
 
     const hassedPass = await bcrypt.hash(password, 8);
@@ -37,7 +38,7 @@ export const signupUser: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({ message: "sigup Failed" });
+    next(createHttpError(401, "sigup Failed"));
   }
 };
 
@@ -56,9 +57,7 @@ export const signinUser: RequestHandler = async (req, res, next) => {
     const isValidPass = await bcrypt.compare(password, userexist.password);
 
     if (!isValidPass)
-      return res.status(401).json({
-        message: "passowrd not valid",
-      });
+    next(createHttpError(401, "passowrd not valid"));
 
     const token = jwt.sign(
       {
@@ -79,8 +78,7 @@ export const signinUser: RequestHandler = async (req, res, next) => {
       token,
     });
   } catch (error) {
-    console.log(error);
-    res.status(401).json({ message: "sigin Failed" });
+    next(createHttpError(401, "sigin Failed"));
   }
 };
 
@@ -101,9 +99,7 @@ export const addTodo: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({
-      message: "Todo Creation Failed",
-    });
+    next(createHttpError(401, "Todo Creation Failed"));
   }
 };
 
@@ -126,8 +122,7 @@ export const getAllTodo: RequestHandler = async (req, res, next) => {
       alltodo,
     });
   } catch (error) {
-    console.log(error);
-    res.status(401).json({ message: "user not found" });
+    next(createHttpError(401, "user not found"));
   }
 };
 export const getAllTodoCompleted: RequestHandler = async (req, res, next) => {
@@ -153,7 +148,7 @@ export const getAllTodoCompleted: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({ message: "user not found" });
+    next(createHttpError(401, "user not found"));
   }
 };
 
@@ -179,7 +174,7 @@ export const getaTodoByID: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({ message: "todo not found" });
+    next(createHttpError(401, "user not found")); 
   }
 };
 
@@ -194,16 +189,14 @@ export const deleteTodo: RequestHandler = async (req, res, next) => {
       },
     });
     if (dele.count == 0) {
-      return res.status(404).json({ message: "Todo id not found" });
+      next(createHttpError(404, "Todo id not found"));  
     }
     res.json({
       message: "deleted success",
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({
-      messgae: "deletion unsuccessfull",
-    });
+    next(createHttpError(401, "deletion unsuccessfull"));
   }
 };
 export const MarkedDoneTodo: RequestHandler = async (req, res, next) => {
@@ -227,8 +220,6 @@ export const MarkedDoneTodo: RequestHandler = async (req, res, next) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(401).json({
-      messgae: "updation  unsuccessfull",
-    });
+    next(createHttpError(401, "updation  unsuccessfull"));
   }
 };

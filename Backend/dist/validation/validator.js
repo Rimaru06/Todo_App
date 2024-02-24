@@ -16,11 +16,15 @@ const zod_1 = require("zod");
 const http_errors_1 = __importDefault(require("http-errors"));
 const validator = (Schema, body, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const value = yield Schema.safeParse(body);
+        const value = Schema.safeParse(body);
+        console.log(value.success);
         if (value.success) {
+            console.log(value.success);
             return next();
         }
-        next((0, http_errors_1.default)(400, "format incorrect"));
+        else {
+            next((0, http_errors_1.default)(400, "format incorrect"));
+        }
     }
     catch (error) {
         if (error instanceof zod_1.ZodError) {

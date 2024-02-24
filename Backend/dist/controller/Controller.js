@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MarkedDoneTodo = exports.deleteTodo = exports.getaTodoByID = exports.getAllTodoCompleted = exports.getAllTodo = exports.addTodo = exports.signinUser = exports.signupUser = void 0;
+const http_errors_1 = __importDefault(require("http-errors"));
 const client_1 = require("@prisma/client");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -27,7 +28,7 @@ const signupUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             },
         });
         if (existingUser) {
-            return res.status(422).json({ message: "Email already exists" });
+            next((0, http_errors_1.default)(422, "Email already exists"));
         }
         const hassedPass = yield bcrypt_1.default.hash(password, 8);
         const user = yield prisma.user.create({
@@ -45,7 +46,7 @@ const signupUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({ message: "sigup Failed" });
+        next((0, http_errors_1.default)(401, "sigup Failed"));
     }
 });
 exports.signupUser = signupUser;
@@ -61,9 +62,7 @@ const signinUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             return res.status(404).json({ message: "user not found" });
         const isValidPass = yield bcrypt_1.default.compare(password, userexist.password);
         if (!isValidPass)
-            return res.status(401).json({
-                message: "passowrd not valid",
-            });
+            next((0, http_errors_1.default)(401, "passowrd not valid"));
         const token = jsonwebtoken_1.default.sign({
             userId: userexist.id,
         }, config_1.JWT_KEY, {
@@ -79,8 +78,7 @@ const signinUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log(error);
-        res.status(401).json({ message: "sigin Failed" });
+        next((0, http_errors_1.default)(401, "sigin Failed"));
     }
 });
 exports.signinUser = signinUser;
@@ -101,9 +99,7 @@ const addTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({
-            message: "Todo Creation Failed",
-        });
+        next((0, http_errors_1.default)(401, "Todo Creation Failed"));
     }
 });
 exports.addTodo = addTodo;
@@ -127,8 +123,7 @@ const getAllTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log(error);
-        res.status(401).json({ message: "user not found" });
+        next((0, http_errors_1.default)(401, "user not found"));
     }
 });
 exports.getAllTodo = getAllTodo;
@@ -156,7 +151,7 @@ const getAllTodoCompleted = (req, res, next) => __awaiter(void 0, void 0, void 0
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({ message: "user not found" });
+        next((0, http_errors_1.default)(401, "user not found"));
     }
 });
 exports.getAllTodoCompleted = getAllTodoCompleted;
@@ -182,7 +177,7 @@ const getaTodoByID = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({ message: "todo not found" });
+        next((0, http_errors_1.default)(401, "user not found"));
     }
 });
 exports.getaTodoByID = getaTodoByID;
@@ -197,7 +192,7 @@ const deleteTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
             },
         });
         if (dele.count == 0) {
-            return res.status(404).json({ message: "Todo id not found" });
+            next((0, http_errors_1.default)(404, "Todo id not found"));
         }
         res.json({
             message: "deleted success",
@@ -205,9 +200,7 @@ const deleteTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({
-            messgae: "deletion unsuccessfull",
-        });
+        next((0, http_errors_1.default)(401, "deletion unsuccessfull"));
     }
 });
 exports.deleteTodo = deleteTodo;
@@ -231,9 +224,7 @@ const MarkedDoneTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     }
     catch (error) {
         console.log(error);
-        res.status(401).json({
-            messgae: "updation  unsuccessfull",
-        });
+        next((0, http_errors_1.default)(401, "updation  unsuccessfull"));
     }
 });
 exports.MarkedDoneTodo = MarkedDoneTodo;
