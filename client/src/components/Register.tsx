@@ -14,6 +14,7 @@ const RegisterSchema = Yup.object().shape({
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().required("Password is required"),
+  confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords must match").required("Confirm Password is required"),
 });
 const Register = () => {
   const [register, setRegister] = useState({
@@ -43,8 +44,8 @@ const Register = () => {
     <>
       <ToastContainer />
       <div className="bg-black h-screen w-screen flex flex-col justify-center items-center">
-        <div className="w-[22rem] h-[30rem] md:w-[30rem] md:h-[30rem] shadow-2xl">
-          <div className="flex flex-col justify-center items-center gap-2 h-[15%] ">
+        <div className="w-[22rem] h-[35rem] md:w-[30rem] md:h-[35rem] shadow-2xl">
+          <div className="flex flex-col justify-center items-center gap-2 h-[10%] ">
             <h1 className="text-white font-extrabold text-lg md:text-3xl">
               Create Your Account
             </h1>
@@ -68,7 +69,7 @@ const Register = () => {
                 setRegister(values);
               }}
             >
-              <Form className="flex flex-col items-center gap-2 h-[85%] ">
+              <Form className="flex flex-col items-center gap-2 h-[90%] ">
                 <div className="flex flex-col  gap-1 w-[18rem] md:w-[25rem]   h-[5rem] ">
                   <label className="text-white" htmlFor="firstName">
                     Firstname
@@ -116,9 +117,23 @@ const Register = () => {
                     className="w-full md:h-8 rounded-md shadow-md pl-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     type="password"
                     name="password"
+                    autocomplete="current-password"
                   />
                   <div className="text-xs text-red-500">
                     <ErrorMessage name="password" />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1 w-[18rem] md:w-[25rem] h-[5rem] ">
+                  <label className="text-white" htmlFor="confirmPassword">
+                    Confirm Your Password
+                  </label>
+                  <Field
+                    className="w-full md:h-8 rounded-md shadow-md pl-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    type="text"
+                    name="confirmPassword"
+                  />
+                  <div className="text-xs text-red-500">
+                    <ErrorMessage name="confirmPassword" />
                   </div>
                 </div>
                 <div className="flex justify-center items-center w-[18rem] md:w-[25rem] ">

@@ -5,6 +5,7 @@ import './index.css'
 import { createBrowserRouter , RouterProvider } from 'react-router-dom'
 import Login from './components/Login.tsx'
 import Register from './components/Register.tsx'
+import DashBoard from './components/DashBoard.tsx'
 
 const BrowserRouter  = createBrowserRouter([{
   path : "/",
@@ -18,6 +19,10 @@ const BrowserRouter  = createBrowserRouter([{
   path : "/register",
   element : <Register />
 
+},
+{
+  path : "/dashboard",
+  element : <DashBoard />
 }
 ])
 
