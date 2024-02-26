@@ -109,7 +109,6 @@ export const getAllTodo: RequestHandler = async (req, res, next) => {
     const alltodo = await prisma.todo.findMany({
       where: {
         userId: parseInt(userId.userId),
-        done: false,
       },
       select: {
         id: true,
@@ -201,20 +200,25 @@ export const deleteTodo: RequestHandler = async (req, res, next) => {
 };
 export const MarkedDoneTodo: RequestHandler = async (req, res, next) => {
   try {
-    const { userId } = req.body;
+    const {userId} = req.body;
     const todoId: string = req.query.todoId as string;
 
-    const update = await prisma.todo.update({
+    const todo = await prisma.todo.findFirst({
+      where: {
+        userId: parseInt(userId.userId),
+        id: parseInt(todoId),
+      },
+    });
+
+    await prisma.todo.update({
       where: {
         userId: parseInt(userId.userId),
         id: parseInt(todoId),
       },
       data: {
-        done: true,
+        done: !todo?.done,
       },
     });
-
-    console.log(update);
     res.status(200).json({
       message: "todo updated succesfull",
     });

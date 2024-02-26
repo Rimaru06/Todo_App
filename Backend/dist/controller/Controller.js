@@ -109,7 +109,6 @@ const getAllTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const alltodo = yield prisma.todo.findMany({
             where: {
                 userId: parseInt(userId.userId),
-                done: false,
             },
             select: {
                 id: true,
@@ -208,16 +207,21 @@ const MarkedDoneTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     try {
         const { userId } = req.body;
         const todoId = req.query.todoId;
-        const update = yield prisma.todo.update({
+        const todo = yield prisma.todo.findFirst({
+            where: {
+                userId: parseInt(userId.userId),
+                id: parseInt(todoId),
+            },
+        });
+        yield prisma.todo.update({
             where: {
                 userId: parseInt(userId.userId),
                 id: parseInt(todoId),
             },
             data: {
-                done: true,
+                done: !(todo === null || todo === void 0 ? void 0 : todo.done),
             },
         });
-        console.log(update);
         res.status(200).json({
             message: "todo updated succesfull",
         });

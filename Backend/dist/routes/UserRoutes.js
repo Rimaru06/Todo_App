@@ -11,6 +11,6 @@ router.post("/addTodo", jwtverify_1.jwtVerify, Controller_1.addTodo);
 router.get('/getTodos', jwtverify_1.jwtVerify, Controller_1.getAllTodo);
 router.get('/CompletedTodos', jwtverify_1.jwtVerify, Controller_1.getAllTodoCompleted);
 router.get('/gitTodoById', jwtverify_1.jwtVerify, Controller_1.getaTodoByID);
-router.put('/delteTodo', jwtverify_1.jwtVerify, Controller_1.deleteTodo);
-router.put('/markedDone', jwtverify_1.jwtVerify, Controller_1.MarkedDoneTodo);
+router.delete('/delteTodo', jwtverify_1.jwtVerify, Controller_1.deleteTodo);
+router.put("/markedDone", jwtverify_1.jwtVerify, Controller_1.MarkedDoneTodo);
 exports.default = router;

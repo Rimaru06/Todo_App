@@ -12,8 +12,8 @@ router.post("/addTodo", jwtVerify , addTodo);
 router.get('/getTodos', jwtVerify, getAllTodo);
 router.get('/CompletedTodos', jwtVerify , getAllTodoCompleted);
 router.get('/gitTodoById', jwtVerify , getaTodoByID);
-router.put('/delteTodo', jwtVerify , deleteTodo);
-router.put('/markedDone',jwtVerify ,MarkedDoneTodo );
+router.delete('/delteTodo', jwtVerify , deleteTodo);
+router.put("/markedDone", jwtVerify, MarkedDoneTodo);
 
 
 export default router;
