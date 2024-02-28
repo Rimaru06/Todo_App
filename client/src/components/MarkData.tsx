@@ -1,3 +1,4 @@
+
 import MarkedDone from "./MarkedDone";
 
 interface smaltodo {
@@ -8,15 +9,19 @@ interface smaltodo {
 }
 
 interface DataType {
-  Todo: smaltodo[];
+  allTodos: smaltodo[];
+  setAllTodos: Function;
 }
 
 export function TodoList(props: DataType) {
   return (
     <div className="flex gap-6 flex-wrap p-6 ">
-      {props.Todo.map((todo: smaltodo, index) => {
+      {props.allTodos.map((todo: smaltodo, index) => {
         return (
           <MarkedDone
+            setAllTodos={props.setAllTodos}
+            allTodos={props.allTodos}
+            key={todo.id}
             todo={todo}
             index={index}
           />

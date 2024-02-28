@@ -1,9 +1,15 @@
 import { useTodofetch } from "./Hooks/DataFectch";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TodoList } from "./MarkData";
+import React from "react";
 const AllTodo = () => {
   const { data, loading, error } = useTodofetch();
-  console.log(data, loading, error);
+  const [allTodos, setAllTodos] = React.useState(data || []);
+  React.useEffect(() => {
+    if (allTodos !== data) {
+      setAllTodos(data);
+    }
+  },[data])
   return (
     <div className={`w-full h-full ${loading && "overflow-hidden"}`}>
       {loading ? (
@@ -12,12 +18,12 @@ const AllTodo = () => {
         </div>
       ) : error ? (
         <h1>Error while data fectching</h1>
-      ) : data ? (
+      ) : allTodos ? (
         <div>
-          <TodoList Todo={data} />
+          <TodoList allTodos={allTodos} setAllTodos={setAllTodos} />
         </div>
       ) : (
-        <h1> No data found</h1>
+        <h1 className="text-white font-extrabold "> No data found</h1>
       )}
     </div>
   );

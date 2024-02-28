@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -7,32 +6,36 @@ import Login from './components/Login.tsx'
 import Register from './components/Register.tsx'
 import DashBoard from './components/DashBoard.tsx'
 import AllTodo from './components/AllTodo.tsx'
+import AddTodo from './components/AddTodo.tsx'
 
-const BrowserRouter  = createBrowserRouter([{
-  path : "/",
-  element : <App />
-},
-{
-  path : "/login",
-  element : <Login />
-},
-{
-  path : "/register",
-  element : <Register />
-
-},
-{
-  path : "/dashboard",
-  element : <DashBoard />,
-  children : [
-    {
-      index : true, element : <AllTodo />
-    }
-  ]
-
-
-}
-])
+const BrowserRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashBoard />,
+    children: [
+      {
+        index: true,
+        element: <AllTodo />,
+      },
+      {
+        path: "/dashboard/addTodo",
+        element: <AddTodo />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
