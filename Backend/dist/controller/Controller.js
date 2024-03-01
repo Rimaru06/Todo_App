@@ -84,6 +84,7 @@ const signinUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
 exports.signinUser = signinUser;
 const addTodo = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, userId } = req.body;
+    console.log(title, description, userId);
     try {
         const Todo = yield prisma.todo.create({
             data: {

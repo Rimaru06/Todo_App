@@ -84,6 +84,7 @@ export const signinUser: RequestHandler = async (req, res, next) => {
 
 export const addTodo: RequestHandler = async (req, res, next) => {
   const { title, description, userId } = req.body;
+  console.log(title , description , userId);
   try {
     const Todo = await prisma.todo.create({
       data: {

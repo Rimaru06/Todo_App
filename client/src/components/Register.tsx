@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios , {AxiosResponse}from "axios";
@@ -17,16 +16,15 @@ const RegisterSchema = Yup.object().shape({
   confirmPassword: Yup.string().oneOf([Yup.ref("password")], "Passwords must match").required("Confirm Password is required"),
 });
 const Register = () => {
-  const [register, setRegister] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
   const navigate = useNavigate();
-  const handleSumbit = async () => {
+  const handleSumbit = async (values : {
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  }) => {
     try {
-        const res : AxiosResponse  = await axios.post("http://localhost:8080/user/signup",register);
+        const res : AxiosResponse  = await axios.post("http://localhost:8080/user/signup",values);
         if (res.status === 200) {
             toast.success("Register Success"); 
               navigate("/login"); 
@@ -66,7 +64,7 @@ const Register = () => {
               }}
               validationSchema={RegisterSchema}
               onSubmit={(values) => {
-                setRegister(values);
+                handleSumbit(values);
               }}
             >
               <Form className="flex flex-col items-center gap-2 h-[90%] ">
@@ -137,7 +135,7 @@ const Register = () => {
                   </div>
                 </div>
                 <div className="flex justify-center items-center w-[18rem] md:w-[25rem] ">
-                  <Button naam="Register" handleClick={handleSumbit} />
+                  <Button naam="Register" />
                 </div>
               </Form>
             </Formik>

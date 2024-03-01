@@ -15,16 +15,13 @@ const LoginSchema = Yup.object().shape({
 });
 const Login = () => {
   const navigate = useNavigate();
-  const [login, setLogin] = useState({
-    email: "",
-    password: "",
-  });
   const [showpassword , setshowpassword]= useState(false);
-
-  const handleSubmit =async () => {
-
+  const handleSubmit = async (values : {
+    email: string,
+    password: string
+  }) => {
     try {
-      const res : AxiosResponse = await axios.post("http://localhost:8080/user/signin", login);
+      const res : AxiosResponse = await axios.post("http://localhost:8080/user/signin", values);
       if(res.status === 200)
       {
         console.log(res.data);
@@ -58,8 +55,8 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={LoginSchema}
             onSubmit={(values) => {
-              setLogin(values);
-              handleSubmit();
+              handleSubmit(values);
+             
             }}
           >
             <Form className="grid grid-cols-1 w-full h-full gap-2 ">
