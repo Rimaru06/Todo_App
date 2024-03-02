@@ -37,7 +37,6 @@ export const signupUser: RequestHandler = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.log(error);
     next(createHttpError(401, "sigup Failed"));
   }
 };

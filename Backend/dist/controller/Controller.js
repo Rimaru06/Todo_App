@@ -45,7 +45,6 @@ const signupUser = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log(error);
         next((0, http_errors_1.default)(401, "sigup Failed"));
     }
 });
