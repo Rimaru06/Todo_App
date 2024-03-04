@@ -37,16 +37,16 @@ const AddTodo = () => {
   return (
     <>
       <ToastContainer />
-      <div className="w-full h-full flex justify-center items-center">
-        <div className="md:w-[40%] md:h-[50%] shadow-2xl rounded-sm   ">
-          <div className="flex justify-center items-center w-full h-[20%] md:text-2xl md:font-bold">
+      <div className="w-full h-full  flex justify-center items-center ">
+        <div className="w-96 h-96 md:w-[70%] md:h-[50%] xl:w-[40%] xl:h-[50%] shadow-2xl rounded-sm    ">
+          <div className="flex justify-center items-center w-full h-[20%] text-2xl font-bold">
             <h1 className="text-white">ADD TODO</h1>
           </div>
           <Formik
             initialValues={{ title: "", description: "" }}
             validationSchema={todoSchema}
             onSubmit={(values) => {
-             handleSumbit(values);
+              handleSumbit(values);
             }}
           >
             <Form className="h-[80%] flex flex-col justify-center items-center    ">
@@ -79,7 +79,7 @@ const AddTodo = () => {
               </div>
 
               <div className="flex justify-center items-center w-[80%] h-[30%]">
-                <Button naam="ADD"  />
+                <Button naam="ADD" />
               </div>
             </Form>
           </Formik>

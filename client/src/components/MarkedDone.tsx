@@ -69,7 +69,7 @@ const MarkedDone = ({ todo, index, setAllTodos, allTodos }: any) => {
   return (
     <div
       key={tempTodo.id}
-      className="text-white px-4 bg-[#121212] rounded-lg min-w-96 max-w-96 shrink-0 py-6"
+      className="text-white px-4 bg-[#121212] rounded-lg  min-w-80 max-w-96 shrink-0 py-6"
     >
       <p className={`text-2xl ${tempTodo.done && "line-through"}`}>
         {index + 1}. {tempTodo.title}

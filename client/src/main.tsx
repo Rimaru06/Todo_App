@@ -7,6 +7,7 @@ import Register from './components/Register.tsx'
 import DashBoard from './components/DashBoard.tsx'
 import AllTodo from './components/AllTodo.tsx'
 import AddTodo from './components/AddTodo.tsx'
+import Search from './components/Search.tsx'
 
 const BrowserRouter = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const BrowserRouter = createBrowserRouter([
         path: "/dashboard/addTodo",
         element: <AddTodo />,
       },
+      {
+        path : "/dashboard/search",
+        element : <Search />
+      }
     ],
   },
 ]);

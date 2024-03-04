@@ -11,7 +11,7 @@ const AllTodo = () => {
     }
   },[data])
   return (
-    <div className={`w-full h-full ${loading && "overflow-hidden"}`}>
+    <div className={`w-screen h-full  ${loading && "overflow-hidden"}`}>
       {loading ? (
         <div className="w-full h-full flex justify-center items-center animate-spin  ">
           <AiOutlineLoading3Quarters size={50} color="white" />
@@ -19,7 +19,7 @@ const AllTodo = () => {
       ) : error ? (
         <h1>Error while data fectching</h1>
       ) : allTodos ? (
-        <div>
+        <div className="w-full h-full ">
           <TodoList allTodos={allTodos} setAllTodos={setAllTodos} />
         </div>
       ) : (

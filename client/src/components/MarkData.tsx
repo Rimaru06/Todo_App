@@ -15,7 +15,7 @@ interface DataType {
 
 export function TodoList(props: DataType) {
   return (
-    <div className="flex gap-6 flex-wrap p-6 ">
+    <div className="flex gap-7 flex-wrap justify-center p-6 ">
       {props.allTodos.map((todo: smaltodo, index) => {
         return (
           <MarkedDone
