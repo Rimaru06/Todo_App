@@ -34,21 +34,31 @@ const DashBoard = () => {
   }, []);
   return (
     <>
-      <div className="h-screen w-screen bg-black flex relative">
-        <button
-          className="absolute  w-[10%] h-[10%] flex justify-center items-center  z-50"
-          onClick={() => {
-            setshow(!show);
-          }}
-        >
-          <BsFillMenuButtonWideFill
-            className={`text-3xl ${show ? "text-white" : "text-black"}`}
-          />
-        </button>
+      <div className="h-screen w-screen bg-black flex flex-col relative">
+          <button
+            className=" w-[10%] h-[10%] flex justify-center items-center"
+            onClick={() => {
+              setshow(!show);
+            }}
+          >
+            <BsFillMenuButtonWideFill
+              className={`text-3xl ${show ? "text-white" : "text-black"}`}
+            />
+          </button>
         <div
-          className={`absolute w-full sm:w-[20%] md:w-[25%] lg:w-[20%] xl:w-[15%]  bg-white  gap-5 h-full transition-transform duration-300 ease-out 
+          className={`absolute w-full sm:w-[20%] md:w-[25%] lg:w-[20%] xl:w-[15%]  bg-white  gap-5 h-full
          ${show ? "hidden" : "block"}`}
         >
+          <div className="flex justify-end mr-2">
+            <h1
+              onClick={() => {
+                setshow(!show);
+              }}
+              className="text-xl font-bold cursor-pointer"
+            >
+              X
+            </h1>
+          </div>
           <div className="h-[15%] flex justify-around  items-center gap-2 border-b-2 border-black">
             <div className="flex justify-center items-center ">
               <h1 className="text-lg font-bold flex justify-center items-center gap-2">
